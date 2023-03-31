@@ -1,4 +1,11 @@
+// Song "Playing With Fire" by Shaolin Dub imported from https://freemusicarchive.org/
+
+import ddf.minim.*;
 import controlP5.*;
+
+// background music
+Minim minim;
+AudioPlayer song;
 
 // menu screen
 ControlP5 cp5;
@@ -16,6 +23,10 @@ void setup() {
   //Make UI
   cp5 = new ControlP5(this);
   drawUI();
+  
+  // load music from file
+  song = minim.loadFile("Shaolin Dub - Playing With Fire.mp3");
+  song.play();
 }
 
 void draw() {
