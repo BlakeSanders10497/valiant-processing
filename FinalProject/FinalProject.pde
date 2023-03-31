@@ -1,5 +1,4 @@
 // Song "Playing With Fire" by Shaolin Dub imported from https://freemusicarchive.org/
-
 import ddf.minim.*;
 import controlP5.*;
 
@@ -14,17 +13,20 @@ color green = #519a66;
 color white = #FFFFFF;
 color lightBrown = #9d7658;
 color darkBrown = #755338;
+Player player;
 
 void setup() {
   size(800, 600);
   background(green);
   menu = true;
+  player = new Player();
 
   //Make UI
   cp5 = new ControlP5(this);
   drawUI();
   
   // load music from file
+  minim = new Minim(this);
   song = minim.loadFile("Shaolin Dub - Playing With Fire.mp3");
   song.play();
 }
