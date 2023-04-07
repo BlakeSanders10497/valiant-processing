@@ -35,7 +35,7 @@ void setup() {
   // load music from file
   minim = new Minim(this);
   song = minim.loadFile("Shaolin Dub - Playing With Fire.mp3");
-  //song.play();
+  song.play();
 }
 
 void draw() {
@@ -66,12 +66,13 @@ void controlEvent(ControlEvent theEvent) {
     int diff = int(theEvent.getValue());
     if(diff == 0) {
       difficulty = "easy";
+      board.setXY(0, height);
     }
     else {
       difficulty = "hard";
+      board.setXY(0, height/2);
     }
     board.setLevel(difficulty);
-    board.setXY(0, height/2);
   }
 
   if(name == "Start Game") {

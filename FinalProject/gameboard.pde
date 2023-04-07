@@ -9,14 +9,14 @@
     PImage tilesheet; 
     int imgHeight;
     int imgWidth;
-    ArrayList<int> objects;
+    ArrayList<Integer> objects;
     
     GameBoard(int height, int width) {
         this.height = height;
         this.width = width;
         this.x = 0;
         this.y = 0;    
-        objects = new ArrayList<int>();
+        this.objects = new ArrayList<Integer>();
     }
 
     void drawBoard() {
