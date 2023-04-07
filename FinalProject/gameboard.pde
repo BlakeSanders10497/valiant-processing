@@ -20,6 +20,7 @@
     }
 
     void drawBoard() {
+        imageMode(CORNER);
         image(tilesheet.get(x, y, width, height), 0, 0);
     }
 

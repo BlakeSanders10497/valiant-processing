@@ -45,9 +45,9 @@ class Player {
     float jumpH = 0;
     int jumpStartTime = 0;
 
-    Player(float screenW, float screenH) {
-        this.x = screenW/2.0;
-        this.y = screenH/2.0;
+    Player(float x, float y) {
+        this.x = x;
+        this.y = y;
         this.direction = Direction.DOWN;
         this.state = State.IDLE;
         this.spriteSheet = loadImage(spriteSheetPath);
@@ -180,6 +180,10 @@ class Player {
     void jump() {
         this.state = State.JUMP;
         startJumpTimer();
+    }
+
+    void swim() {
+        this.state =State.SWIM;
     }
 
     void moveLeft() {

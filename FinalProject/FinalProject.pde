@@ -50,9 +50,38 @@ void draw() {
   else {
     //draw game
     board.drawBoard();
+    player.draw(width/2, height/2);
   }
 }
 
+void keyPressed() {
+  if(key == 'w') {
+    player.moveUp();
+  }
+  else if(key == 'd') {
+    player.moveRight();
+  }
+  else if(key == 's') {
+    player.moveDown();
+  }
+  else if(key == 'a') {
+    player.moveLeft();
+  }
+
+  if(player.state != State.JUMP && key == ' ') {
+    player.jump();
+  }
+
+  if(key == 'x') {
+    player.swim();
+  }
+}
+
+void keyReleased() {
+  if(key != ' ') {
+    player.idle();
+  }
+}
 void controlEvent(ControlEvent theEvent) {
   String name = theEvent.getController().getName();
 
