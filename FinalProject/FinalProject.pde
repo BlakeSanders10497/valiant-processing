@@ -13,6 +13,8 @@ color green = #519a66;
 color white = #FFFFFF;
 color lightBrown = #9d7658;
 color darkBrown = #755338;
+
+// Player
 Player player;
 
 String player_name;
@@ -29,13 +31,13 @@ void setup() {
   board = new GameBoard(height, width);
 
   //Make UI
-  cp5 = new ControlP5(this);
-  drawUI();
+  // cp5 = new ControlP5(this);
+  // drawUI();
   
   // load music from file
   minim = new Minim(this);
   song = minim.loadFile("Shaolin Dub - Playing With Fire.mp3");
-  song.play();
+  // song.play();
 }
 
 void draw() {
@@ -85,47 +87,64 @@ void controlEvent(ControlEvent theEvent) {
   }
 }
 
-void drawUI() {
-  String cfont = "disposabledroid-bb/DisposableDroidBB.ttf";
-  ControlFont cf = new ControlFont(createFont(cfont, 20));
-  PFont font = createFont("disposabledroid-bb/DisposableDroidBB.ttf", 100);
-  fill(white);
-  textFont(font);
-  text("VALIANT", width/2, height/2 - 175);
+void keyReleased()
+{
+  if(key != ' ') player.idle();
 
-  cp5.addButton("Start Game")
-    .setPosition(width/2 - 350/2, height/2 + 150)
-    .setSize(350, 50)
-    .setColorForeground(darkBrown)
-    .setColorBackground(lightBrown)
-    .setColorActive(white)
-    .setVisible(menu)
-    .setFont(cf)
-    ;
-
-  cp5.addDropdownList("Select Difficulty")
-    .setPosition(width/2 - 350/2, height/2 - 25)
-    .setSize(350, 150)
-    .setColorForeground(darkBrown)
-    .setColorBackground(lightBrown)
-    .setColorActive(white)
-    .setBarHeight(50)
-    .addItem("Easy", 0)
-    .setItemHeight(50)
-    .addItem("Hard", 1)
-    .setVisible(menu)
-    .setFont(cf)
-    ;
-
-  cp5.addTextfield("Enter Name")
-    .setPosition(width/2 - 350/2, height/2 - 100)
-    .setSize(350, 50)
-    .setColorForeground(darkBrown)
-    .setColorBackground(lightBrown)
-    .setColorActive(white)
-    .setAutoClear(false)
-    .setVisible(menu)
-    .setFont(cf)
-    .getCaptionLabel().align(ControlP5.LEFT, ControlP5.TOP_OUTSIDE)
-    ;
+  if(key == 'x') player.idle();
 }
+
+// void controlEvent(ControlEvent theEvent) {
+//   String name = theEvent.getController().getName();
+// }
+
+// void drawUI() {
+//   String cfont = "disposabledroid-bb/DisposableDroidBB.ttf";
+//   ControlFont cf = new ControlFont(createFont(cfont, 20));
+//   PFont font = createFont("disposabledroid-bb/DisposableDroidBB.ttf", 100);
+//   fill(white);
+//   textFont(font);
+//   text("VALIANT", width/2, height/2 - 175);
+
+//   cp5.addButton("Start")
+//     .setLabel("Start Game")
+//     .setPosition(width/2 - 350/2, height/2 + 150)
+//     .setSize(350, 50)
+//     .setColorForeground(darkBrown)
+//     .setColorBackground(lightBrown)
+//     .setColorActive(white)
+//     .setVisible(menu)
+//     .setFont(cf)
+//     ;
+
+//   cp5.addDropdownList("Select Difficulty")
+//     .setPosition(width/2 - 350/2, height/2 - 25)
+//     .setSize(350, 150)
+//     .setColorForeground(darkBrown)
+//     .setColorBackground(lightBrown)
+//     .setColorActive(white)
+//     .setBarHeight(50)
+//     .addItem("Easy", 0)
+//     .setItemHeight(50)
+//     .addItem("Hard", 1)
+//     .setVisible(menu)
+//     .setFont(cf)
+//     ;
+
+//   cp5.addTextfield("Enter Name")
+//     .setPosition(width/2 - 350/2, height/2 - 100)
+//     .setSize(350, 50)
+//     .setColorForeground(darkBrown)
+//     .setColorBackground(lightBrown)
+//     .setColorActive(white)
+//     .setAutoClear(false)
+//     .setVisible(menu)
+//     .setFont(cf)
+//     .getCaptionLabel().align(ControlP5.LEFT, ControlP5.TOP_OUTSIDE)
+//     ;
+// }
+
+// public void Start(int theValue)
+// {
+//   println("button press!");
+// }
