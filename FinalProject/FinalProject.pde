@@ -25,7 +25,7 @@ void setup() {
   menu = true;
   player_name = "";
   difficulty = "";
-  player = new Player();
+  player = new Player(width/2, height/2);
   board = new GameBoard(height, width);
 
   //Make UI
