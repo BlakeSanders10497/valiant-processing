@@ -34,15 +34,15 @@ class Player {
 
     void loadSprite() {
         switch(current_state) {
-            case state.IDLE:
+            case IDLE:
                 break;
-            case state.RUN:
+            case RUN:
                 break;
-            case state.JUMP:
+            case JUMP:
                 break;
-            case state.SWIM:
+            case SWIM:
                 break;
-            case state.CLIMB:
+            case CLIMB:
                 break;
             default:
                 break;

@@ -15,11 +15,18 @@ color lightBrown = #9d7658;
 color darkBrown = #755338;
 Player player;
 
+String player_name;
+String difficulty;
+GameBoard board;
+
 void setup() {
   size(800, 600);
   background(green);
   menu = true;
+  player_name = "";
+  difficulty = "";
   player = new Player();
+  board = new GameBoard(height, width);
 
   //Make UI
   cp5 = new ControlP5(this);
@@ -28,19 +35,53 @@ void setup() {
   // load music from file
   minim = new Minim(this);
   song = minim.loadFile("Shaolin Dub - Playing With Fire.mp3");
-  song.play();
+  //song.play();
 }
 
 void draw() {
   background(green);
-  PFont font = createFont("disposabledroid-bb/DisposableDroidBB.ttf", 100);
-  fill(white);
-  textFont(font);
-  text("VALIANT", width/2 - 150, height/2 - 175);
+  if(menu) {
+    //draw menu
+    PFont font = createFont("disposabledroid-bb/DisposableDroidBB.ttf", 100);
+    fill(white);
+    textFont(font);
+    text("VALIANT", width/2 - 150, height/2 - 175);
+  }
+  else {
+    //draw game
+    board.drawBoard();
+  }
 }
 
 void controlEvent(ControlEvent theEvent) {
   String name = theEvent.getController().getName();
+
+  String data = cp5.get(Textfield.class, "Enter Name").getText();
+  print("name: " + data);
+  if(data != "" && !data.isBlank()) {
+    player_name = data;
+  }
+
+  if(name == "Select Difficulty") {
+    int diff = int(theEvent.getValue());
+    if(diff == 0) {
+      difficulty = "easy";
+    }
+    else {
+      difficulty = "hard";
+    }
+    board.setLevel(difficulty);
+    board.setXY(0, height/2);
+  }
+
+  if(name == "Start Game") {
+    if(player_name != "" && difficulty != "") {
+      menu = false;
+      cp5.getController("Start Game").setVisible(false);
+      cp5.getController("Select Difficulty").setVisible(false);
+      cp5.getController("Enter Name").setVisible(false);
+    }
+  }
 }
 
 void drawUI() {
