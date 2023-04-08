@@ -12,6 +12,7 @@
     int imgWidth;
     String level;
     ArrayList<Integer> objects;
+    boolean swimming;
 
     int easyStartX = -210;
     int easyStartY = 600;
@@ -29,6 +30,7 @@
         this.y = 0;    
         this.objects = new ArrayList<Integer>();
         speed = 30;
+        swimming = false;
     }
 
     void drawBoard() {
@@ -50,53 +52,83 @@
         }
     }
 
-    void cameraUp() {
-      color c = get(width/2+5, height/2-10);
-      println("HEX COLOR: ", hex(c)," RGB: ", red(c), green(c), blue(c));
+    void checkSwimming(color c) {
+        if(int(red(c)) == 95 && (int(green(c)) == 150 || int(green(c)) == 149) && (int(blue(c)) == 243 || int(blue(c)) == 245)) {
+            this.swimming = true;
+        }
+        else {
+            this.swimming = false;
+        }
+    }
 
+    void cameraUp() {
+      color c = get(width/2, height/2-10);
+        noFill();
+      stroke(3);
+      circle( width/2, height/2-10, 10);
+      checkSwimming(c);
+      /*println("HEX COLOR: ", hex(c)," RGB: ", red(c), green(c), blue(c));
+      
       if (160<=red(c) && red(c)>=130 && 130<=green(c) && green(c)>=100 && 100<=blue(c) && blue(c)>=70){
         return;
       }
       if (90<=red(c) && red(c)>=50 && 65<=green(c) && green(c)>=40 && 45<=blue(c) && blue(c)>=15){
         return;
-      }
+      }*/
       setXY(this.x, this.y-speed);
     }
 
     void cameraRight() {
-      color c = get(width/2+20, height/2+5);
-      println("HEX COLOR: ", hex(c)," RGB: ", red(c), green(c), blue(c));
+      color c = get(width/2+30, height/2+25);
+    noFill();
+      stroke(3);
+      circle( width/2+30, height/2+25, 10);
+      checkSwimming(c);
+      /*println("HEX COLOR: ", hex(c)," RGB: ", red(c), green(c), blue(c));
+      
       if (160<=red(c) && red(c)>=130 && 130<=green(c) && green(c)>=100 && 100<=blue(c) && blue(c)>=70){
         return;
       }
       if (90<=red(c) && red(c)>=50 && 65<=green(c) && green(c)>=40 && 45<=blue(c) && blue(c)>=15){
         return;
-      }
+      }*/
       setXY(this.x+speed, this.y);
     }
 
     void cameraLeft() {
-      color c = get(width/2-20, height/2+5);
-      print("HEX COLOR: ", hex(c)," RGB: ", red(c), green(c), blue(c));
+      color c = get(width/2-30, height/2+25);
+      noFill();
+      stroke(3);
+      circle(width/2-30, height/2+25, 10);
+      checkSwimming(c);
+      /*println("HEX COLOR: ", hex(c)," RGB: ", red(c), green(c), blue(c));
       if (160<=red(c) && red(c)>=130 && 130<=green(c) && green(c)>=100 && 100<=blue(c) && blue(c)>=70){
         return;
       }
       if (90<=red(c) && red(c)>=50 && 65<=green(c) && green(c)>=40 && 45<=blue(c) && blue(c)>=15){
         return;
-      }
+      }*/
         setXY(this.x-speed, this.y);
     }
 
     void cameraDown() {
-      color c = get(width/2, height/2+40);
-      print("HEX COLOR: ", hex(c)," RGB: ", red(c), green(c), blue(c));
+     color c = get(width/2, height/2+55);
+        noFill();
+      stroke(3);
+      circle(width/2, height/2+55, 10);
+     checkSwimming(c);
+      /*println("HEX COLOR: ", hex(c)," RGB: ", red(c), green(c), blue(c));
       if (160<=red(c) && red(c)>=130 && 130<=green(c) && green(c)>=100 && 100<=blue(c) && blue(c)>=70){
         return;
       }
       if (90<=red(c) && red(c)>=50 && 65<=green(c) && green(c)>=40 && 45<=blue(c) && blue(c)>=15){
         return;
-      }
-        setXY(this.x, this.y+speed);
+      }*/
+      setXY(this.x, this.y+speed);
+    }
+
+    boolean swimming() {
+        return swimming;
     }
 
 

@@ -163,6 +163,7 @@ class Player {
                     this.animation = swimRight;
                     break;
                 default:
+                    this.animation = swimRight;
                     break;
             }
         }

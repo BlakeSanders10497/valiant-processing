@@ -43,7 +43,7 @@ void setup() {
   // load music from file
   minim = new Minim(this);
   song = minim.loadFile("Shaolin Dub - Playing With Fire.mp3");
-  song.play();
+  //song.play();
 }
 
 void draw() {
@@ -59,6 +59,7 @@ void draw() {
     //draw game
     board.drawBoard();
     player.draw(width/2, height/2);
+    println(board.swimming());
     if(gameStart) {
       // display time 
       PFont font = createFont("disposabledroid-bb/DisposableDroidBB.ttf", 30);
@@ -113,10 +114,14 @@ void keyPressed() {
     }
     gameStart = start;
   }
+
+  if(board.swimming()) {
+    player.swim();
+  }
 }
 
 void keyReleased() {
-  if(key != ' ') {
+  if(!board.swimming() && key != ' ') {
     player.idle();
   }
 }
