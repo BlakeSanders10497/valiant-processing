@@ -29,9 +29,6 @@ class Player {
     Animation runLeft, runRight, runUp, runDown;
     Animation jumpLeft, jumpRight, jumpUp, jumpDown;
     Animation swimLeft, swimRight;
-
-    // Global coordinates
-    float x, y;
     
     // Player constants
     private final String spriteSheetPath    = "mystic_woods_free_2.1/sprites/characters/player.png";
@@ -45,9 +42,7 @@ class Player {
     float jumpH = 0;
     int jumpStartTime = 0;
 
-    Player(float x, float y) {
-        this.x = x;
-        this.y = y;
+    Player() {
         this.direction = Direction.DOWN;
         this.state = State.IDLE;
         this.spriteSheet = loadImage(spriteSheetPath);
