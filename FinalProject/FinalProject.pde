@@ -35,7 +35,7 @@ void setup() {
   // load music from file
   minim = new Minim(this);
   song = minim.loadFile("Shaolin Dub - Playing With Fire.mp3");
-  song.play();
+  // song.play();
 }
 
 void draw() {
@@ -57,15 +57,19 @@ void draw() {
 void keyPressed() {
   if(key == 'w') {
     player.moveUp();
+    board.cameraUp();
   }
   else if(key == 'd') {
     player.moveRight();
+    board.cameraRight();
   }
   else if(key == 's') {
     player.moveDown();
+    board.cameraDown();
   }
   else if(key == 'a') {
     player.moveLeft();
+    board.cameraLeft();
   }
 
   if(player.state != State.JUMP && key == ' ') {

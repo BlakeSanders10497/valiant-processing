@@ -6,6 +6,7 @@
     int height;
     int width;
     int x, y;
+    int speed;
     PImage tilesheet; 
     int imgHeight;
     int imgWidth;
@@ -17,6 +18,7 @@
         this.x = 0;
         this.y = 0;    
         this.objects = new ArrayList<Integer>();
+        speed = 10;
     }
 
     void drawBoard() {
@@ -37,6 +39,22 @@
         }
     }
 
+    void cameraUp() {
+        setXY(this.x, this.y-speed);
+    }
+
+    void cameraRight() {
+        setXY(this.x+speed, this.y);
+    }
+
+    void cameraLeft() {
+        setXY(this.x-speed, this.y);
+    }
+
+    void cameraDown() {
+        setXY(this.x, this.y+speed);
+    }
+
     void setXY(int x, int y) {
         if(x != -1) {
             this.x = x;
@@ -45,17 +63,21 @@
             this.y = y;
         }
         //check out of bounds
-        if(x + width > imgWidth) {
-            x = imgWidth - width;
+        println("x val: " + x);
+        println("y val: " + y);
+        println("imgWidth val: " + imgWidth);
+        println("imgHeiht val: " + imgHeight);
+        if(x + width > imgWidth + 390) {
+            this.x = imgWidth - width + 390;
         }
-        else if(x < 0) {
-            x = 0;
+        else if(x < -390) {
+            this.x = -390;
         }
-        if(y + height > imgHeight) {
-            x = imgHeight - height;
+        if(y + height > imgHeight + 300) {
+            this.y = imgHeight - height + 300;
         }
-        else if(y < 0) {
-            y = 0;
+        else if(y < -300) {
+            this.y = -300;
         }
     }
  }
