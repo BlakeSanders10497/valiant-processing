@@ -43,7 +43,7 @@ void setup() {
   // load music from file
   minim = new Minim(this);
   song = minim.loadFile("Shaolin Dub - Playing With Fire.mp3");
-  //song.play();
+  song.play();
 }
 
 void draw() {
