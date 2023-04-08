@@ -51,20 +51,54 @@
     }
 
     void cameraUp() {
-        setXY(this.x, this.y-speed);
+      color c = get(width/2+5, height/2-10);
+      println("HEX COLOR: ", hex(c)," RGB: ", red(c), green(c), blue(c));
+
+      if (160<=red(c) && red(c)>=130 && 130<=green(c) && green(c)>=100 && 100<=blue(c) && blue(c)>=70){
+        return;
+      }
+      if (90<=red(c) && red(c)>=50 && 65<=green(c) && green(c)>=40 && 45<=blue(c) && blue(c)>=15){
+        return;
+      }
+      setXY(this.x, this.y-speed);
     }
 
     void cameraRight() {
-        setXY(this.x+speed, this.y);
+      color c = get(width/2+20, height/2+5);
+      println("HEX COLOR: ", hex(c)," RGB: ", red(c), green(c), blue(c));
+      if (160<=red(c) && red(c)>=130 && 130<=green(c) && green(c)>=100 && 100<=blue(c) && blue(c)>=70){
+        return;
+      }
+      if (90<=red(c) && red(c)>=50 && 65<=green(c) && green(c)>=40 && 45<=blue(c) && blue(c)>=15){
+        return;
+      }
+      setXY(this.x+speed, this.y);
     }
 
     void cameraLeft() {
+      color c = get(width/2-20, height/2+5);
+      print("HEX COLOR: ", hex(c)," RGB: ", red(c), green(c), blue(c));
+      if (160<=red(c) && red(c)>=130 && 130<=green(c) && green(c)>=100 && 100<=blue(c) && blue(c)>=70){
+        return;
+      }
+      if (90<=red(c) && red(c)>=50 && 65<=green(c) && green(c)>=40 && 45<=blue(c) && blue(c)>=15){
+        return;
+      }
         setXY(this.x-speed, this.y);
     }
 
     void cameraDown() {
+      color c = get(width/2, height/2+40);
+      print("HEX COLOR: ", hex(c)," RGB: ", red(c), green(c), blue(c));
+      if (160<=red(c) && red(c)>=130 && 130<=green(c) && green(c)>=100 && 100<=blue(c) && blue(c)>=70){
+        return;
+      }
+      if (90<=red(c) && red(c)>=50 && 65<=green(c) && green(c)>=40 && 45<=blue(c) && blue(c)>=15){
+        return;
+      }
         setXY(this.x, this.y+speed);
     }
+
 
     void setXY(int x, int y) {
         if(x != -1) {
