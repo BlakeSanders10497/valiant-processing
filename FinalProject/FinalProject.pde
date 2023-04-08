@@ -10,6 +10,7 @@ AudioPlayer song;
 ControlP5 cp5;
 boolean menu;
 boolean gameOver;
+boolean gameStart;
 color green = #4d9162;
 color white = #FFFFFF;
 color lightBrown = #9d7658;
@@ -27,6 +28,7 @@ void setup() {
   background(green);
   menu = true;
   gameOver = false;
+  gameStart = false;
   player_name = "";
   difficulty = "";
   time = "";
@@ -57,12 +59,15 @@ void draw() {
     //draw game
     board.drawBoard();
     player.draw(width/2, height/2);
-    if(gameOver) {
+    if(gameStart) {
       // display time 
-      PFont font = createFont("disposabledroid-bb/DisposableDroidBB.ttf", 100);
+      PFont font = createFont("disposabledroid-bb/DisposableDroidBB.ttf", 30);
       fill(white);
       textFont(font);
-      text("Run Time: " + time, 0 + 100, height/2);
+      int sec = game.second();
+      int min = game.minute();
+      time = str(min) + ":" + str(sec);
+      text("Run Time: " + time, 0, 30);
     }
   }
 }
@@ -93,13 +98,20 @@ void keyPressed() {
     player.swim();
   }
   if(!gameOver) {
-    boolean status = board.checkWin();
-    if(status) {
-      int sec = game.second();
-      int min = game.minute();
-      time = str(min) + ":" + str(sec);
+    boolean over = board.checkWin();
+    if(over) {
+      game.stop();
     }
-    gameOver = status;
+    gameOver = over;
+  }
+
+  if(!gameStart) {
+    boolean start = board.checkStart();
+    println(start);
+    if(start) {
+      game.start();
+    }
+    gameStart = start;
   }
 }
 
@@ -137,7 +149,6 @@ void controlEvent(ControlEvent theEvent) {
       cp5.getController("Start Game").setVisible(false);
       cp5.getController("Select Difficulty").setVisible(false);
       cp5.getController("Enter Name").setVisible(false);
-      game.start();
     }
   }
 }

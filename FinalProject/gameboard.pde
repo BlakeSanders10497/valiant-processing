@@ -109,4 +109,22 @@
         }
         return false;
     }
+
+    boolean checkStart() {
+        if(level == "hard") {
+            if(this.x <= hardStartX + 40 && this.x >= hardStartX - 40) {
+                if(this.y <= hardStartY + 40 && this.y >= hardStartY - 40) {
+                    return true;
+                }
+            }
+        }
+        else {
+            if(this.x <= easyStartX + 40 && this.x >= easyStartX - 40) {
+                if(this.y <= easyStartY + 40 && this.y >= easyStartY - 40) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
  }
