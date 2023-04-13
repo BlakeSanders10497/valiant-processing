@@ -150,11 +150,11 @@ class GameBoard {
     boolean checkSwim(int newX, int newY) {
         JSONArray waterCoordinates = new JSONArray();
         if(level == "easy") {
-            JSONObject water = loadJSONObject("maze_easy.json");
+            JSONObject water = loadJSONObject("data/maze_easy.json");
             waterCoordinates = water.getJSONArray("water");
         }
         else {
-            JSONObject water = loadJSONObject("maze_difficult.json");
+            JSONObject water = loadJSONObject("data/maze_difficult.json");
             waterCoordinates = water.getJSONArray("water");
         }
         for(int i = 0; i < waterCoordinates.size(); i++) {
@@ -174,11 +174,11 @@ class GameBoard {
     boolean checkBounding(int newX, int newY) {
         JSONArray fenceCoordinates = new JSONArray();
         if(level == "easy") {
-            JSONObject fence = loadJSONObject("maze_easy.json");
+            JSONObject fence = loadJSONObject("data/maze_easy.json");
             fenceCoordinates = fence.getJSONArray("fence");
         }
         else {
-            JSONObject fence = loadJSONObject("maze_difficult.json");
+            JSONObject fence = loadJSONObject("data/maze_difficult.json");
             fenceCoordinates = fence.getJSONArray("fence");
         }
         for(int i = 0; i < fenceCoordinates.size(); i++) {
