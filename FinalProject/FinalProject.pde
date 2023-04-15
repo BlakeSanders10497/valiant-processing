@@ -165,6 +165,7 @@ void controlEvent(ControlEvent theEvent) {
   if(name == "Start Game") {
     if(player_name != "" && difficulty != "") {
       menu = false;
+      cp5.getController("How to Play").setVisible(false);
       cp5.getController("Start Game").setVisible(false);
       cp5.getController("Select Difficulty").setVisible(false);
       cp5.getController("Enter Name").setVisible(false);
@@ -179,6 +180,16 @@ void drawUI() {
   fill(white);
   textFont(font);
   text("VALIANT", width/2, height/2 - 175);
+  
+    cp5.addButton("How to Play")
+    .setPosition(width/2 - 350/2, height/2 + 150)
+    .setSize(350, 50)
+    .setColorForeground(darkBrown)
+    .setColorBackground(lightBrown)
+    .setColorActive(white)
+    .setVisible(menu)
+    .setFont(cf)
+    ;
 
   cp5.addButton("Start Game")
     .setPosition(width/2 - 350/2, height/2 + 150)

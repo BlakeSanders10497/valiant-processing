@@ -1,0 +1,15 @@
+How to Play:
+
+Be the fastest to complete a maze and make it to the other side! Navigate through the fences and cross the finish line in the shortest amount of time to set a high score and make it onto the leaderboard!
+
+Use the following keys on your computer to move around:
+
+W - move up
+A - move left
+S - move down
+D - move right
+
+You can see your current run time on the top left of the screen which will stop once you exit the maze on the opposite side.
+
+Think outside the box to be the fastest!
+Good luck! 

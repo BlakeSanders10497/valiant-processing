@@ -1,2 +1,6 @@
 easy: Julia 0:37
 
+hard: Julia 0:53
+
+hard: Julia 0:21
+
