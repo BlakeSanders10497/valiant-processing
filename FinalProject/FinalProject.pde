@@ -112,7 +112,7 @@ void keyPressed() {
       int sec = game.second();
       int min = game.minute();
       time = str(min) + ":" + str(sec);
-      score += player_name + " " + time + "\n";
+      score += difficulty + ": " + player_name + " " + time + "\n";
       String[] scores = split(score, "\n");
       
       saveStrings("PlayerScores.txt", scores);
