@@ -119,8 +119,8 @@ class GameBoard {
             }
         }
         else {
-            if(this.x <= easyEndX + 40 && this.x >= easyEndX - 40) {
-                if(this.y <= easyEndY + 40 && this.y >= easyEndY - 40) {
+            if(this.x <= easyEndX + 20 && this.x >= easyEndX - 20) {
+                if(this.y <= easyEndY + 20 && this.y >= easyEndY - 20) {
                     // println("win");
                     return true;
                 }

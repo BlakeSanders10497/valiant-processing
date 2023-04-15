@@ -101,6 +101,21 @@ void keyPressed() {
     boolean over = board.checkWin();
     if(over) {
       game.stop();
+      
+      String[] lines = loadStrings("PlayerScores.txt");
+      String score = "";
+      
+      for (int i=0; i<lines.length; i++){
+        score += lines[i] + "\n";
+      }
+      
+      int sec = game.second();
+      int min = game.minute();
+      time = str(min) + ":" + str(sec);
+      score += player_name + " " + time + "\n";
+      String[] scores = split(score, "\n");
+      
+      saveStrings("PlayerScores.txt", scores);
     }
     gameOver = over;
   }
