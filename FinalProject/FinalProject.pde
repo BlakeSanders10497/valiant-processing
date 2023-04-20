@@ -183,11 +183,19 @@ void mousePressed(){
   if (menu){
     if (mouseX >= 650 && mouseX <= 730 && mouseY >= 60 && mouseY <= 140){
       menu = false;
+      cp5.getController("How to Play").setVisible(false);
+      cp5.getController("Start Game").setVisible(false);
+      cp5.getController("Select Difficulty").setVisible(false);
+      cp5.getController("Enter Name").setVisible(false);
       howTo = true;
     }
     
     if (mouseX >= 30 && mouseX <= 150 && mouseY >= 50 && mouseY <= 170){
       menu = false;
+      cp5.getController("How to Play").setVisible(false);
+      cp5.getController("Start Game").setVisible(false);
+      cp5.getController("Select Difficulty").setVisible(false);
+      cp5.getController("Enter Name").setVisible(false);
       highScores = true;
     }
   }
@@ -196,6 +204,10 @@ void mousePressed(){
       rect(width/2 + 250, height/2 + 200, 150, 50);
       howTo = false;
       menu = true;
+      cp5.getController("How to Play").setVisible(true);
+      cp5.getController("Start Game").setVisible(true);
+      cp5.getController("Select Difficulty").setVisible(true);
+      cp5.getController("Enter Name").setVisible(true);
     }
   }
   if (highScores){
@@ -203,6 +215,10 @@ void mousePressed(){
       rect(width/2 + 250, height/2 + 200, 150, 50);
       highScores = false;
       menu = true;
+      cp5.getController("How to Play").setVisible(true);
+      cp5.getController("Start Game").setVisible(true);
+      cp5.getController("Select Difficulty").setVisible(true);
+      cp5.getController("Enter Name").setVisible(true);
     }
   }
 }
