@@ -9,6 +9,5 @@ easy: Julia 0:27
 easy: Julia 0:22
 
 hard: Julia 14:36
-
-easy: vero 1:6
+easy: vero 1:01
 

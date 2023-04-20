@@ -31,7 +31,9 @@ boolean howTo;
 PFont font;
 
 Map<Integer, String> easyMap = new HashMap<Integer, String>();
+PriorityQueue<Integer> easyTimes = new PriorityQueue<Integer>();
 Map<Integer, String> hardMap = new HashMap<Integer, String>();
+PriorityQueue<Integer> hardTimes = new PriorityQueue<Integer>();
 
 void setup() {
   size(800, 600);
@@ -125,14 +127,22 @@ void draw() {
     getHighScores();
     
     int count = 0;
-    
-    for (Map.Entry<Integer, String> me : easyMap.entrySet()){
-      System.out.println("HELLO: " + count + " " + me.getValue());
-      if (count < 3){
-        textSize(20);
-        text(me.getValue(), width/2 - 300, height/2 - 100 + (50*count));
-        count++;
-      }
+
+    Iterator iterator = easyTimes.iterator();
+    //System.out.println(easyTimes);
+    while(iterator.hasNext() && count < 5) {
+      textSize(20);
+      text(easyMap.get(iterator.next()), width/2 - 300, height/2 - 100 + (50*count));
+      count++;
+    }
+
+    iterator = hardTimes.iterator();
+    count = 0;
+
+    while(iterator.hasNext() && count < 5) {
+      textSize(20);
+      text(hardMap.get(iterator.next()), width/2 + 200, height/2 - 100 + (50*count));
+      count++;
     }
     
     fill(darkBrown);
@@ -160,21 +170,27 @@ void draw() {
 
 void getHighScores(){
   String[] scores = loadStrings("PlayerScores.txt");
-  
+  easyTimes.clear();
+  hardTimes.clear();
+
   for (int i=0; i<scores.length; i++){
     String[] split = scores[i].split(" ");
     
-    System.out.println("HERE: " + split[0]);
+    //System.out.println("HERE: " + split[0]);
+    //System.out.println(str(split.length));
     
-    if (split[0] == "easy:"){
+    if (split[0].indexOf("easy") >= 0){
       int time = Integer.parseInt(split[2].substring(split[2].length()-2)) + 60 * Integer.parseInt(split[2].substring(0, split[2].length()-3));
-      System.out.println("NOW: " + time);
+      //System.out.println("NOW: " + time);
       easyMap.put(time, split[1] + " " + split[2]);
+      easyTimes.add(time);
     }
     
-    if (split[0] == "hard:"){
+    if (split[0].indexOf("hard") >= 0){
       int time = Integer.parseInt(split[2].substring(split[2].length()-2)) + 60 * Integer.parseInt(split[2].substring(0, split[2].length()-3));
+      //System.out.println("NOW hard: " + time);
       hardMap.put(time, split[1] + " " + split[2]);
+      hardTimes.add(time);
     }
   }
 }
@@ -262,7 +278,12 @@ void keyPressed() {
       
       int sec = game.second();
       int min = game.minute();
-      time = str(min) + ":" + str(sec);
+      if(sec < 10) {
+        time = str(min) + ":0" + str(sec);
+      }
+      else {
+        time = str(min) + ":" + str(sec);
+      }
       score += difficulty + ": " + player_name + " " + time + "\n";
       String[] scores = split(score, "\n");
       
