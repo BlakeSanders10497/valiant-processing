@@ -93,8 +93,8 @@ class GameBoard {
             this.y = y;
         }
         //check out of bounds
-        println("x val: " + x);
-        println("y val: " + y);
+        //println("x val: " + x);
+        //println("y val: " + y);
         if(x + width > imgWidth + 390) {
             this.x = imgWidth - width + 390;
         }

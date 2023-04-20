@@ -77,6 +77,7 @@ void draw() {
     textFont(font);
     text("VALIANT", width/2 - 150, height/2 - 175);
     
+    imageMode(CORNER);
     image(trophyIcon, 30, 50);
     image(questionIcon, 650, 60);
   }
@@ -128,20 +129,18 @@ void draw() {
     
     int count = 0;
 
-    Iterator iterator = easyTimes.iterator();
+    //Iterator iterator = easyTimes.iterator();
     //System.out.println(easyTimes);
-    while(iterator.hasNext() && count < 5) {
+    while(easyTimes.size() > 0 && count < 5) {
       textSize(20);
-      text(easyMap.get(iterator.next()), width/2 - 300, height/2 - 100 + (50*count));
+      text(easyMap.get(easyTimes.poll()), width/2 - 300, height/2 - 100 + (50*count));
       count++;
     }
 
-    iterator = hardTimes.iterator();
     count = 0;
-
-    while(iterator.hasNext() && count < 5) {
+    while(hardTimes.size() > 0 && count < 5) {
       textSize(20);
-      text(hardMap.get(iterator.next()), width/2 + 200, height/2 - 100 + (50*count));
+      text(hardMap.get(hardTimes.poll()), width/2 + 200, height/2 - 100 + (50*count));
       count++;
     }
     
@@ -237,6 +236,17 @@ void mousePressed(){
       cp5.getController("Enter Name").setVisible(true);
     }
   }
+  if(gameOver) {
+    if(mouseX >= width/2 + 185 && mouseX <= width/2 + 385 && mouseY >= height/2 - 285 && mouseY >= height/2 - 335) {
+      gameOver = false;
+      gameStart = false;
+      menu = true;
+      difficulty = "";
+      time = "";
+      System.out.println("restarting");
+      drawUI();
+    }
+  }
 }
 
 void keyPressed() {
@@ -288,6 +298,7 @@ void keyPressed() {
       String[] scores = split(score, "\n");
       
       saveStrings("PlayerScores.txt", scores);
+      cp5.getController("Restart").setVisible(true);
     }
     gameOver = over;
   }
@@ -320,6 +331,8 @@ void controlEvent(ControlEvent theEvent) {
     player_name = data;
   }
 
+  System.out.println(name);
+
   if(name == "Select Difficulty") {
     int diff = int(theEvent.getValue());
     if(diff == 0) {
@@ -343,6 +356,16 @@ void controlEvent(ControlEvent theEvent) {
       cp5.getController("Enter Name").setVisible(false);
     }
   }
+
+  if(name == "Restart") {
+    gameOver = false;
+      gameStart = false;
+      menu = true;
+      difficulty = "";
+      time = "";
+      System.out.println("restarting");
+      drawUI();
+  }
 }
 
 void drawUI() {
@@ -350,7 +373,7 @@ void drawUI() {
   ControlFont cf = new ControlFont(createFont(cfont, 20));
   fill(white);
   
-    cp5.addButton("How to Play")
+  cp5.addButton("How to Play")
     .setPosition(width/2 - 350/2, height/2 + 150)
     .setSize(350, 50)
     .setColorForeground(darkBrown)
@@ -394,5 +417,15 @@ void drawUI() {
     .setVisible(menu)
     .setFont(cf)
     .getCaptionLabel().align(ControlP5.LEFT, ControlP5.TOP_OUTSIDE)
+    ;
+
+  cp5.addButton("Restart")
+    .setPosition(width/2 + 185, height/2 - 285)
+    .setSize(200, 50)
+    .setColorForeground(darkBrown)
+    .setColorBackground(lightBrown)
+    .setColorActive(white)
+    .setVisible(gameOver)
+    .setFont(cf)
     ;
 }
