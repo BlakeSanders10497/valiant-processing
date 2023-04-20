@@ -4,3 +4,9 @@ hard: Julia 0:53
 
 hard: Julia 0:21
 
+easy: Julia 0:27
+
+easy: Julia 0:22
+
+hard: Julia 14:36
+

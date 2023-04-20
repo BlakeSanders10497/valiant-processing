@@ -23,6 +23,16 @@ String time;
 GameBoard board;
 Game game;
 
+PImage trophyIcon;
+PImage questionIcon;
+boolean highScores;
+boolean howTo;
+
+PFont font;
+
+Map<Integer, String> easyMap = new HashMap<Integer, String>();
+Map<Integer, String> hardMap = new HashMap<Integer, String>();
+
 void setup() {
   size(800, 600);
   background(green);
@@ -44,16 +54,92 @@ void setup() {
   minim = new Minim(this);
   song = minim.loadFile("Shaolin Dub - Playing With Fire.mp3");
   //song.play();
+  
+  trophyIcon = loadImage("trophy-icon.png");
+  questionIcon = loadImage("question-icon.png");
+  
+  trophyIcon.resize(120, 120);
+  questionIcon.resize(80, 80);
+  
+  highScores = false;
+  howTo = false;
+  
+  font = createFont("disposabledroid-bb/DisposableDroidBB.ttf", 100);
 }
 
 void draw() {
   background(green);
   if(menu) {
     //draw menu
-    PFont font = createFont("disposabledroid-bb/DisposableDroidBB.ttf", 100);
     fill(white);
     textFont(font);
     text("VALIANT", width/2 - 150, height/2 - 175);
+    
+    image(trophyIcon, 30, 50);
+    image(questionIcon, 650, 60);
+  }
+  else if (howTo){
+    fill(lightBrown);
+    rectMode(CENTER);
+    rect(width/2, height/2, 740, 520);
+    
+    fill(white);
+    textFont(font);
+    textMode(CENTER);
+    textSize(60);
+    text("HOW TO PLAY", width/2 - 150, height/2 - 200);
+    textSize(20);
+    text("Be the fastest to complete a maze and make it to the other side! Navigate thru", width/2 - 350, height/2 - 150);
+    text("the fences and cross the finish line in the shortest amount of time to set a", width/2 - 350, height/2 - 125);
+    text("high score and make it onto the leaderboard!", width/2 - 350, height/2 - 100);
+    text("Use the following keys on your computer to move around:", width/2 - 350, height/2 - 50);
+    text("W - move up", width/2 - 350, height/2 - 25);
+    text("A - move left", width/2 - 350, height/2);
+    text("S - move down", width/2 - 350, height/2 + 25);
+    text("D - move right", width/2 - 350, height/2 + 50);
+    text("You can see your current run time on the top left of the screen which will stop", width/2 - 350, height/2 + 100);
+    text("once you exit the maze on the opposite side.", width/2 - 350, height/2 + 125);
+    text("Think outside the box to be the fastest!", width/2 - 350, height/2 + 175);
+    text("Good luck!", width/2 - 350, height/2 + 200);
+    fill(darkBrown);
+    rect(width/2 + 250, height/2 + 200, 150, 50);
+    fill(white);
+    textSize(30);
+    text("CLOSE", width/2 + 215, height/2 + 208); 
+  }
+  else if (highScores){
+    fill(lightBrown);
+    rectMode(CENTER);
+    rect(width/2, height/2, 740, 520);
+    
+    fill(white);
+    textFont(font);
+    textMode(CENTER);
+    textSize(60);
+    text("HIGH SCORES", width/2 - 150, height/2 - 200);
+    
+    textSize(40);
+    text("EASY", width/2 - 300, height/2 - 150);
+    text("HARD", width/2 + 200, height/2 - 150);
+    
+    getHighScores();
+    
+    int count = 0;
+    
+    for (Map.Entry<Integer, String> me : easyMap.entrySet()){
+      System.out.println("HELLO: " + count + " " + me.getValue());
+      if (count < 3){
+        textSize(20);
+        text(me.getValue(), width/2 - 300, height/2 - 100 + (50*count));
+        count++;
+      }
+    }
+    
+    fill(darkBrown);
+    rect(width/2 + 250, height/2 + 200, 150, 50);
+    fill(white);
+    textSize(30);
+    text("CLOSE", width/2 + 215, height/2 + 208); 
   }
   else {
     //draw game
@@ -68,6 +154,55 @@ void draw() {
       int min = game.minute();
       time = str(min) + ":" + str(sec);
       text("Run Time: " + time, 0, 30);
+    }
+  }
+}
+
+void getHighScores(){
+  String[] scores = loadStrings("PlayerScores.txt");
+  
+  for (int i=0; i<scores.length; i++){
+    String[] split = scores[i].split(" ");
+    
+    System.out.println("HERE: " + split[0]);
+    
+    if (split[0] == "easy:"){
+      int time = Integer.parseInt(split[2].substring(split[2].length()-2)) + 60 * Integer.parseInt(split[2].substring(0, split[2].length()-3));
+      System.out.println("NOW: " + time);
+      easyMap.put(time, split[1] + " " + split[2]);
+    }
+    
+    if (split[0] == "hard:"){
+      int time = Integer.parseInt(split[2].substring(split[2].length()-2)) + 60 * Integer.parseInt(split[2].substring(0, split[2].length()-3));
+      hardMap.put(time, split[1] + " " + split[2]);
+    }
+  }
+}
+
+void mousePressed(){
+  if (menu){
+    if (mouseX >= 650 && mouseX <= 730 && mouseY >= 60 && mouseY <= 140){
+      menu = false;
+      howTo = true;
+    }
+    
+    if (mouseX >= 30 && mouseX <= 150 && mouseY >= 50 && mouseY <= 170){
+      menu = false;
+      highScores = true;
+    }
+  }
+  if (howTo){
+    if (mouseX >= width/2 + 175 && mouseX <= width/2 + 325 && mouseY >= height/2 + 175 && mouseY <= height/2 + 225){
+      rect(width/2 + 250, height/2 + 200, 150, 50);
+      howTo = false;
+      menu = true;
+    }
+  }
+  if (highScores){
+    if (mouseX >= width/2 + 175 && mouseX <= width/2 + 325 && mouseY >= height/2 + 175 && mouseY <= height/2 + 225){
+      rect(width/2 + 250, height/2 + 200, 150, 50);
+      highScores = false;
+      menu = true;
     }
   }
 }
@@ -176,10 +311,7 @@ void controlEvent(ControlEvent theEvent) {
 void drawUI() {
   String cfont = "disposabledroid-bb/DisposableDroidBB.ttf";
   ControlFont cf = new ControlFont(createFont(cfont, 20));
-  PFont font = createFont("disposabledroid-bb/DisposableDroidBB.ttf", 100);
   fill(white);
-  textFont(font);
-  text("VALIANT", width/2, height/2 - 175);
   
     cp5.addButton("How to Play")
     .setPosition(width/2 - 350/2, height/2 + 150)
