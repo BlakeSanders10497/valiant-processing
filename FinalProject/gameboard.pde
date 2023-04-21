@@ -23,6 +23,8 @@ class GameBoard {
     int hardEndX = 1067;
     int hardEndY = 240;
     
+    // constructor based on screen width and height
+    // sets the current location and keeps tracks of all the objects on the image 
     GameBoard(int height, int width) {
         this.height = height;
         this.width = width;
@@ -33,11 +35,13 @@ class GameBoard {
         swimming = false;
     }
 
+    // draws a section of the larger game board image to the screen
     void drawBoard() {
         imageMode(CORNER);
         image(tilesheet.get(x, y, width, height), 0, 0);
     }
 
+    // loads in the background image of the game board based on the level 
     void setLevel(String level) {
         this.level = level;
         if(level == "hard") {
@@ -52,6 +56,7 @@ class GameBoard {
         }
     }
 
+    // moves the field of view up on the camera if its a valid spot the user can move
     void cameraUp() {
         this.swimming = checkSwim(this.x, this.y-speed);
         if(!checkBounding(this.x, this.y-speed)) {
@@ -59,6 +64,7 @@ class GameBoard {
         }
     }
 
+    // moves the field of view right on the camera if its a valid spot the user can move
     void cameraRight() {
         this.swimming = checkSwim(this.x+speed, this.y);
         if(!checkBounding(this.x+speed, this.y)) {
@@ -66,6 +72,7 @@ class GameBoard {
         }
     }
 
+    // moves the field of view left on the camera if its a valid spot the user can move
     void cameraLeft() {
         this.swimming = checkSwim(this.x-speed, this.y);
         if(!checkBounding(this.x-speed, this.y)) {
@@ -73,6 +80,7 @@ class GameBoard {
         }
     }
 
+    // moves the field of view down on the camera if its a valid spot the user can move
     void cameraDown() {
         this.swimming = checkSwim(this.x, this.y+speed);
         if(!checkBounding(this.x, this.y+speed)) {
@@ -80,11 +88,13 @@ class GameBoard {
         }
     }
 
+    // retuns true if the user is over water 
     boolean swimming() {
         return swimming;
     }
 
-
+    // sets the current x, y of the camera/ field of view of the game board
+    // doesnt update the position if its off (out of bounds) the gameboard image
     void setXY(int x, int y) {
         if(x != -1) {
             this.x = x;
@@ -109,6 +119,7 @@ class GameBoard {
         }
     }
 
+    // checks if the player has reached the end of the maze 
     boolean checkWin() {
         if(level == "hard") {
             if(this.x <= hardEndX + 40 && this.x >= hardEndX - 40) {
@@ -129,6 +140,7 @@ class GameBoard {
         return false;
     }
 
+    // checks if the player has moved from the starting position of the game 
     boolean checkStart() {
         if(level == "hard") {
             if(this.x <= hardStartX + 40 && this.x >= hardStartX - 40) {
@@ -147,6 +159,8 @@ class GameBoard {
         return false;
     }
 
+    // returns true if the user is over water
+    // reads in water coordinates from the txt file
     boolean checkSwim(int newX, int newY) {
         JSONArray waterCoordinates = new JSONArray();
         if(level == "easy") {
@@ -171,6 +185,9 @@ class GameBoard {
         return false;
     }
 
+    // checks if the user is trying to move into an object on the screen
+    // (fence, trees, rocks, etc)
+    // reads in object locations from txt file
     boolean checkBounding(int newX, int newY) {
         JSONArray fenceCoordinates = new JSONArray();
         if(level == "easy") {
@@ -195,6 +212,7 @@ class GameBoard {
         return false;
     }
 
+    // checks if the user is in a water bounding box
     boolean checkSwimBox(int x1, int y1, int x2, int y2, int x, int y) {
         // 1 = top left
         // 2 = bottom right
@@ -204,6 +222,7 @@ class GameBoard {
         return false;
     }
 
+    // checks if the user is in a object bounding box 
     boolean checkBoundingBox(int x1, int y1, int x2, int y2, int x, int y) {
         // 1 = top left
         // 2 = bottom right

@@ -42,6 +42,7 @@ class Player {
     float jumpH = 0;
     int jumpStartTime = 0;
 
+    // player constructor, sets the player states and loads in all necessary files to draw it
     Player() {
         this.direction = Direction.DOWN;
         this.state = State.IDLE;
@@ -51,14 +52,17 @@ class Player {
         updateAnimation();
     }
 
+    // gets the image of the flipped sprite
     PImage getFlippedSprite(int row, int col) {
         return flippedSheet.get(col * spriteW, row * spriteH, spriteW, spriteH);
     }
 
+    // gets the image of the sprite
     PImage getSprite(int row, int col) {
         return spriteSheet.get(col * spriteW, row * spriteH, spriteW, spriteH);
     }
 
+    // gets the sprite sheet of the flipped images
     PImage[] getFlippedSpriteSet(int row, int numSprites) {
         PImage[] set = new PImage[numSprites];
 
@@ -69,6 +73,7 @@ class Player {
         return set;
     }
 
+    // gets the sprite sheet of the player images
     PImage[] getSpriteSet(int row, int numSprites) {
         PImage[] set = new PImage[numSprites];
 
@@ -79,7 +84,7 @@ class Player {
         return set;
     }
 
-
+    // loads in all the animations from the sprite sheets 
     void loadAnimations() {
         idleLeft    = new Animation(getFlippedSpriteSet(1, 6));
         idleRight   = new Animation(getSpriteSet(1, 6));
@@ -169,40 +174,47 @@ class Player {
         }
     }
 
+    // sets the state to idle
     void idle() {
         this.state = State.IDLE;
     }
 
+    // sets the state to jump
     void jump() {
         this.state = State.JUMP;
         startJumpTimer();
     }
 
+    // sets the state to swim
     void swim() {
         this.state =State.SWIM;
     }
 
+    // sets the players state to facing left
     void moveLeft() {
         // x -= vX;
         this.state = State.RUN;
         this.direction = direction.LEFT;
     }
+    // sets the players state to facing up
     void moveUp() {
         // y -= vY;
         this.state = State.RUN;
         this.direction = direction.UP;
     }
+    // sets the players state to facing right
     void moveRight() {
         // x += vX;
         this.state = State.RUN;
         this.direction = direction.RIGHT;
     }
+    // sets the players state to facing down
     void moveDown() {
         // y += vY;
         this.state = State.RUN;
         this.direction = direction.DOWN;
     }
-
+    // starts the time for the players jump duration
     void startJumpTimer() {
         jumpStartTime = millis();
     }
@@ -222,6 +234,7 @@ class Player {
         return h * (1 - (pow(t-c, 2) / pow(c, 2)));
     }
 
+    // updates the player jump animation 
     void update() {
         if(state == State.JUMP) {
             jumpH = jumpHeight();
@@ -232,6 +245,7 @@ class Player {
         updateAnimation();
     }
 
+    // draws the player based on its animation state
     void draw(float screenX, float screenY) {
         update();
 

@@ -35,6 +35,8 @@ PriorityQueue<Integer> easyTimes = new PriorityQueue<Integer>();
 Map<Integer, String> hardMap = new HashMap<Integer, String>();
 PriorityQueue<Integer> hardTimes = new PriorityQueue<Integer>();
 
+// setup function, initializes the start game page, and loads the music
+// constructs class instances for the objects used in the game and sets default state params 
 void setup() {
   size(800, 600);
   background(green);
@@ -69,6 +71,7 @@ void setup() {
   font = createFont("disposabledroid-bb/DisposableDroidBB.ttf", 100);
 }
 
+// draw function, switches between different game state: start menu, how to menu, scores menu, and game play
 void draw() {
   background(green);
   if(menu) {
@@ -167,6 +170,7 @@ void draw() {
   }
 }
 
+// retrieves the high score from the txt file and stores them in hashmaps and priority queues 
 void getHighScores(){
   String[] scores = loadStrings("PlayerScores.txt");
   easyTimes.clear();
@@ -194,6 +198,7 @@ void getHighScores(){
   }
 }
 
+// handles mouse clicks for the how to, scores, and restart buttons 
 void mousePressed(){
   if (menu){
     if (mouseX >= 650 && mouseX <= 730 && mouseY >= 60 && mouseY <= 140){
@@ -249,6 +254,7 @@ void mousePressed(){
   }
 }
 
+// controls the character and board movement based on the user inputs
 void keyPressed() {
   if(key == 'w') {
     player.moveUp();
@@ -317,11 +323,14 @@ void keyPressed() {
   }
 }
 
+// handles the player movement, defaults to idle on key relased 
 void keyReleased() {
   if(!board.swimming() && key != ' ') {
     player.idle();
   }
 }
+
+// handles the cp5 buttons 
 void controlEvent(ControlEvent theEvent) {
   String name = theEvent.getController().getName();
 
@@ -368,6 +377,7 @@ void controlEvent(ControlEvent theEvent) {
   }
 }
 
+// draws all the buttons as visible or not based on the current game state 
 void drawUI() {
   String cfont = "disposabledroid-bb/DisposableDroidBB.ttf";
   ControlFont cf = new ControlFont(createFont(cfont, 20));

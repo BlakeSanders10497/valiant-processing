@@ -10,6 +10,7 @@ class Animation {
   int timeOfLastFrame;
   final int FRAME_DURATION = 200;
   
+  // constructor for an animation instance 
   Animation(PImage... images) {
     this.images = new LinkedList<PImage>();
     reset();
@@ -19,11 +20,13 @@ class Animation {
     }
   }
 
+  // resets the time frame for animations
   void reset() {
     frame = 0;
     timeOfLastFrame = millis();
   }
 
+  // draws a frame from the animation to the screen 
   void display(float screenX, float screenY) {
     int timeSinceLastFrame = millis() - timeOfLastFrame;
     if(timeSinceLastFrame > FRAME_DURATION) {
@@ -34,6 +37,7 @@ class Animation {
     image(images.get(frame), screenX, screenY);
   }
   
+  // returns the width of an image 
   int getWidth() {
     return images.get(0).width;
   }
